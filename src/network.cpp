@@ -1,8 +1,6 @@
 #include "network.h"
 #include "random.h"
 #include <iostream>
-//#include <algorithm>
-//inclusion traitement d'erreur?
 #include <tclap/CmdLine.h>
 
 
@@ -12,7 +10,6 @@ void Network::resize(const size_t& n) {
 		for (size_t i(0);i<n;++i) 
 			values[i]=RNG.normal(); 
 	}
-	//else std::cerr<<"Impossible de resize"<<'\n';
 	else throw TCLAP::ArgException("Impossible de resize, taille <= 0");
 	
 }
@@ -59,17 +56,14 @@ size_t Network::random_connect(const double& mean_deg) {
 		indices.push_back(i);
 		
 	for (size_t j(0);j<size();++j) {
-		//RandomNumbers rn;
 		deg=RNG.poisson(mean_deg);
 		if (deg>(size()-1)) deg = (size()-1);
 		
 		RNG.shuffle(indices);
 		size_t compteur(0);
-		//while (compteur<deg) {
 		for(size_t n(0);n<indices.size();++n) {
-			//RNG.shuffle(indices);
 			if (compteur<deg) {
-				if (add_link(j, indices[n])) { //[0]
+				if (add_link(j, indices[n])) { 
 					++compteur;
 					++nbreliens;
 				}
@@ -77,7 +71,7 @@ size_t Network::random_connect(const double& mean_deg) {
 		}
 	}
 	
-	return nbreliens; //links.size()/2 
+	return nbreliens;
 }
 
 size_t Network::set_values(const std::vector<double>& vec) {
@@ -128,15 +122,5 @@ std::vector<size_t> Network::neighbors(const size_t& n) const {
 			resultat.push_back(it->second);	
 		}
 	return resultat;
-	
-}
-
-void Network::affichevalues() {
-	for (auto element:values)
-		std::cout<<element<<" "<<'\n';	
-}
-
-
-void Network::affichemap() {
 	
 }
