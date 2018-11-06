@@ -50,9 +50,6 @@ public:
 /*! All neighbors (linked) nodes of node no *n* */
     std::vector<size_t> neighbors(const size_t&) const;
     
-    void affichevalues();
-    void affichemap();
-
 private:
     std::vector<double> values;
     std::multimap<size_t, size_t> links;
